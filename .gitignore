@@ -1,2 +1,5 @@
 # Mac files
 .DS_Store
+
+# Python caches
+*__pycache__*
