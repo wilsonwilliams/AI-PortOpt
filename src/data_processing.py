@@ -36,25 +36,25 @@ if __name__ == "__main__":
     _, volatilities = fit_garch_multi(returns)
 
     delta = end_date - start_date
-    train_end = start_date + timedelta(days=delta.days * 0.75)
-    val_end = start_date + timedelta(days=delta.days * 0.85)
+    train_end = start_date + timedelta(days=delta.days * 0.85)
+    test_start = start_date + timedelta(days=delta.days * 0.85)
 
     train_returns = returns[returns.index <= train_end]
-    val_returns = returns[(returns.index > train_end) & (returns.index <= val_end)]
-    test_returns = returns[returns.index > val_end]
+    # val_returns = returns[(returns.index > train_end) & (returns.index <= test_start)]
+    test_returns = returns[returns.index > test_start]
 
     train_volatilities = volatilities[volatilities.index <= train_end]
-    val_volatilities = volatilities[(volatilities.index > train_end) & (volatilities.index <= val_end)]
-    test_volatilities = volatilities[volatilities.index > val_end]
+    # val_volatilities = volatilities[(volatilities.index > train_end) & (volatilities.index <= test_start)]
+    test_volatilities = volatilities[volatilities.index > test_start]
 
     train_returns.to_csv(os.path.join("data", "train_returns.csv"), index=False)
     train_volatilities.to_csv(os.path.join("data", "train_vols.csv"), index=False)
-    val_returns.to_csv(os.path.join("data", "val_returns.csv"), index=False)
-    val_volatilities.to_csv(os.path.join("data", "val_vols.csv"), index=False)
+    # val_returns.to_csv(os.path.join("data", "val_returns.csv"), index=False)
+    # val_volatilities.to_csv(os.path.join("data", "val_vols.csv"), index=False)
     test_returns.to_csv(os.path.join("data", "test_returns.csv"), index=False)
     test_volatilities.to_csv(os.path.join("data", "test_vols.csv"), index=False)
 
     print("\nData Download and Processing Complete:")
     print("Train Data Size: {}, {}".format(train_returns.shape, train_volatilities.shape))
-    print("Validation Data Size: {}, {}".format(val_returns.shape, val_volatilities.shape))
+    # print("Validation Data Size: {}, {}".format(val_returns.shape, val_volatilities.shape))
     print("Test Data Size: {}, {}".format(test_returns.shape, test_volatilities.shape))

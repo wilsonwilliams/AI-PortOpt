@@ -3,3 +3,6 @@
 
 # Python caches
 *__pycache__*
+
+# Logs
+/logs
