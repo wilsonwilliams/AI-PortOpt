@@ -8,6 +8,7 @@ from stable_baselines3.common.env_util import make_vec_env
 
 
 if __name__ == "__main__":
+    ### RUN CODE TO TRAIN MODEL ###
     log_returns = pd.read_csv(os.path.join("data", "train_returns.csv"))
     vols = pd.read_csv(os.path.join("data", "train_vols.csv"))
 

@@ -35,17 +35,13 @@ if __name__ == "__main__":
     prices, returns = get_data(TICKERS, start_date, end_date)
     _, volatilities = fit_garch_multi(returns)
 
-    delta = end_date - start_date
-    train_end = start_date + timedelta(days=delta.days * 0.85)
-    test_start = start_date + timedelta(days=delta.days * 0.85)
+    train_returns = returns[returns.index <= config.TRAIN_END_DATE]
+    # val_returns = returns[(returns.index > config.TRAIN_END_DATE) & (returns.index <= config.TEST_START_DATE)]
+    test_returns = returns[returns.index > config.TEST_START_DATE]
 
-    train_returns = returns[returns.index <= train_end]
-    # val_returns = returns[(returns.index > train_end) & (returns.index <= test_start)]
-    test_returns = returns[returns.index > test_start]
-
-    train_volatilities = volatilities[volatilities.index <= train_end]
-    # val_volatilities = volatilities[(volatilities.index > train_end) & (volatilities.index <= test_start)]
-    test_volatilities = volatilities[volatilities.index > test_start]
+    train_volatilities = volatilities[volatilities.index <= config.TRAIN_END_DATE]
+    # val_volatilities = volatilities[(volatilities.index > config.TRAIN_END_DATE) & (volatilities.index <= config.TEST_START_DATE)]
+    test_volatilities = volatilities[volatilities.index > config.TEST_START_DATE]
 
     train_returns.to_csv(os.path.join("data", "train_returns.csv"), index=False)
     train_volatilities.to_csv(os.path.join("data", "train_vols.csv"), index=False)
