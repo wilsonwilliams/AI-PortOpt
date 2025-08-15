@@ -107,7 +107,7 @@ if __name__ == "__main__":
     print('=' * 20 + "  Backtesting Complete  " + '=' * 20 + "\n")
     print('=' * 20 + "  Forward Testing with Monte Carlo Simulations  " + '=' * 20)
 
-    prices_train, returns_train = get_data(tickers, '2020-01-01', '2023-01-01')
+    prices_train, returns_train = get_data(tickers, config.TEST_START_DATE, config.DATA_END_DATE)
     garch_models, _ = fit_garch_multi(returns_train)
 
     print("Generating Monte Carlo paths...")
@@ -136,5 +136,5 @@ if __name__ == "__main__":
         print("Simulated Portfolio Value (Path {}): ${:,.2f}".format(i+1, env.portfolio_value))
 
     port_values = np.array(port_values)
-    print("Average Simulated Portfolio Value: ${:,.2f}".format(np.mean(port_values)))
+    print("\nAverage Simulated Portfolio Value: ${:,.2f}".format(np.mean(port_values)))
     print("\n" + '=' * 20 + "  Forward Testing Complete  " + '=' * 20 + "\n")
